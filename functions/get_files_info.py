@@ -33,23 +33,5 @@ def get_file_summary(path):
             print(f"Error: Script unable to read {content} as it has no read permission")
     return output_string
 
-def get_files_content(working_directory, file_path):
-    working_path = os.path.abspath(working_directory)
-    if os.path.isdir(working_path):
-        abs_file_path = os.path.abspath(os.path.join(working_directory,file_path))
-        if not abs_file_path.startswith(os.path.abspath(working_directory)):
-            return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
-        elif not os.path.isfile(abs_file_path):
-            return f'Error: File not found or is not a regular file: "{file_path}"'
-        else:
-            #Read file content and return content as string
-            MAX_CHARS = 10000
-            with open(abs_file_path, "r") as f:
-                file_content_string = f.read()
-                count_chars = len(file_content_string)
-                trunc_file_content_string = file_content_string[:MAX_CHARS]
-            if count_chars > MAX_CHARS:
-                trunc_file_content_string += '\n[...File "{file_path}" truncated at 10000 characters]'
-            return trunc_file_content_string
 
     
