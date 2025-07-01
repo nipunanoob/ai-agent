@@ -12,6 +12,5 @@ def write_file(working_directory, file_path, content):
             return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
         except:
             return f'Error: Could not write to "{file_path}"'
-
     else:
         return f'Error: Working directory does not exist'

@@ -1,17 +1,21 @@
-from functions.write_file  import write_file
+from functions.run_python  import run_python_file
 
 def main():
     # Test reading main.py
-    result1 = write_file("calculator", "lorem.txt", "wait, this isn't lorem ipsum")
+    result1 = run_python_file("calculator", "main.py")
     print(result1)
     
-    # Test reading calculator.py
-    result2 = write_file("calculator", "pkg/morelorem.txt", "lorem ipsum dolor sit amet")
+    # Test reading tests.py
+    result2 = run_python_file("calculator", "tests.py")
     print(result2)
-    
-    # Test error case - file outside working directory
-    result3 = write_file("calculator", "/tmp/temp.txt", "this should not be allowed") 
+
+    # Test reading ../main.py which will raise an error
+    result3 = run_python_file("calculator", "../main.py")
     print(result3)
+
+    # Test reading nonexistent.py which will raise an error
+    result4 = run_python_file("calculator", "nonexistent.py")
+    print(result4)
 
 if __name__ == "__main__":
     main()
