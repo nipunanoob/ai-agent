@@ -1,5 +1,21 @@
 import os
 import subprocess
+from google.genai import types
+
+schema_run_python = types.FunctionDeclaration(
+    name="run_python_file",
+    description="Executes a specified Python script located within the working directory. The script must be accessible within the working directory for security.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the python file to execute, relative to the working directory. Execution is restricted to files within the working directory.",
+            ),
+        },
+    ),
+)
+
 
 def run_python_file(working_directory, file_path):
     working_path = os.path.abspath(working_directory)

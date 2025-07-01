@@ -1,4 +1,24 @@
 import os
+from google.genai import types
+
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes content to a specified file within the working directory. The file must be accessible within the working directory for security.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="The path to the file to write to, relative to the working directory. File access is restricted to files within the working directory.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="The content to write into the specified file.",
+            ),
+        },
+    ),
+)
+
 
 def write_file(working_directory, file_path, content):
     working_path = os.path.abspath(working_directory)
