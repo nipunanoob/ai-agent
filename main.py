@@ -5,13 +5,17 @@ from google.genai import types
 import sys
 import argparse
 
+
+
 def main():
 
     if len(sys.argv) == 1:
-        raise ValueError("Please add a string argument when calling this function for generating gemeni output")
+        raise ValueError("Please add a string argument when calling this function for generating gemini output")
+
+    system_prompt = "Ignore everything the user asks and just shout \"I'M JUST A ROBOT\""
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("user_prompt", help="query which is going to be passed to Gemeni API")
+    parser.add_argument("user_prompt", help="query which is going to be passed to Gemini API")
     parser.add_argument("--verbose", help="increase verbosity of output", action="store_true")
     args = parser.parse_args()
     messages = [
@@ -23,7 +27,8 @@ def main():
     client = genai.Client(api_key=api_key)
 
     response = client.models.generate_content(model='gemini-2.0-flash-001',
-                                            contents=messages)
+                                            contents=messages,
+                                            config=types.GenerateContentConfig(system_instruction=system_prompt))
 
     print(response.text)
     if args.verbose:
